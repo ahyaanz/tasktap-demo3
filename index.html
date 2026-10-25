@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasktap - Local Gigs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans">
+    
+    <!-- Sticky Navigation Bar -->
+    <nav class="bg-white shadow-sm py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+        <div class="text-2xl font-extrabold text-indigo-600 tracking-tighter cursor-pointer" onclick="window.scrollTo(0,0)">Tasktap</div>
+        <div class="flex items-center space-x-4">
+            <button id="lang-toggle" class="text-slate-500 hover:text-indigo-600 font-bold px-2 py-1 border border-slate-200 rounded transition" onclick="toggleLanguage()">FI</button>
+            <button class="text-slate-500 hover:text-slate-900 font-medium hidden sm:block" onclick="openModal('login-modal')" data-i18n="nav_login">Log In</button>
+            <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg font-medium shadow-sm transition" onclick="openModal('post-modal')" data-i18n="nav_post">Post a Task</button>
+        </div>
+    </nav>
+
+    <!-- Hero Header Section -->
+    <header class="bg-indigo-50 py-20 px-6 text-center border-b border-indigo-100">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 mb-6 tracking-tight" data-i18n="hero_title">Earn Money Helping Your Neighbors</h1>
+        <p class="text-lg text-slate-600 max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero_desc">Tasktap connects locals for quick household micro-tasks. Mow lawns, walk dogs, or help with groceries—safely and securely in your area.</p>
+        <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3.5 rounded-lg text-lg font-semibold shadow-md transition hover:-translate-y-0.5" onclick="document.getElementById('task-section').scrollIntoView()" data-i18n="hero_btn">Find Tasks Near Me</button>
+    </header>
+
+    <!-- Interactive Task Board -->
+    <main id="task-section" class="max-w-6xl mx-auto py-16 px-6">
+        
+        <!-- Filter Buttons -->
+        <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4 border-b border-slate-200 pb-6">
+            <h2 class="text-3xl font-bold text-slate-900 tracking-tight" data-i18n="board_title">Live Local Tasks</h2>
+            <div class="flex flex-wrap gap-2 justify-center">
+                <button class="filter-btn bg-slate-800 text-white px-5 py-2 rounded-lg text-sm font-semibold transition" data-filter="all" data-i18n="filter_all">All Tasks</button>
+                <button class="filter-btn bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 px-5 py-2 rounded-lg text-sm font-semibold transition" data-filter="yard" data-i18n="filter_yard">Yard Work</button>
+                <button class="filter-btn bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 px-5 py-2 rounded-lg text-sm font-semibold transition" data-filter="pets" data-i18n="filter_pets">Pets</button>
+                <button class="filter-btn bg-white text-slate-600 hover:bg-slate-100 border border-slate-200 px-5 py-2 rounded-lg text-sm font-semibold transition" data-filter="errands" data-i18n="filter_errands">Errands</button>
+            </div>
+        </div>
+
+        <!-- Task Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="task-board">
+            
+            <!-- Task 1 -->
+            <div class="task-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:border-indigo-200 transition duration-300" data-category="yard">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="tag_yard">Yard Work</span>
+                    <span class="text-xl font-extrabold text-slate-900">€15</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-slate-800" data-i18n="task1_title">Rake front lawn leaves</h3>
+                <p class="text-slate-500 text-sm mb-6 line-clamp-2" data-i18n="task1_desc">Need someone to rake and bag the autumn leaves in my front yard. Bags are provided.</p>
+                <div class="flex items-center text-sm text-slate-400 mb-6 font-medium">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span data-i18n="task1_loc">0.5 km away (Espoo)</span>
+                </div>
+                <button class="w-full bg-slate-50 hover:bg-indigo-50 text-indigo-600 font-bold py-2.5 rounded-lg border border-slate-200 hover:border-indigo-200 transition" onclick="openModal('claim-modal')" data-i18n="btn_claim">Claim Task</button>
+            </div>
+
+            <!-- Task 2 -->
+            <div class="task-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:border-indigo-200 transition duration-300" data-category="pets">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-sky-100 text-sky-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="tag_pets">Pets</span>
+                    <span class="text-xl font-extrabold text-slate-900">€10</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-slate-800" data-i18n="task2_title">Walk golden retriever</h3>
+                <p class="text-slate-500 text-sm mb-6 line-clamp-2" data-i18n="task2_desc">Looking for a 30-minute afternoon walk for my very friendly dog, Max.</p>
+                <div class="flex items-center text-sm text-slate-400 mb-6 font-medium">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span data-i18n="task2_loc">1.2 km away (Tapiola)</span>
+                </div>
+                <button class="w-full bg-slate-50 hover:bg-indigo-50 text-indigo-600 font-bold py-2.5 rounded-lg border border-slate-200 hover:border-indigo-200 transition" onclick="openModal('claim-modal')" data-i18n="btn_claim">Claim Task</button>
+            </div>
+
+            <!-- Task 3 -->
+            <div class="task-card bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:border-indigo-200 transition duration-300" data-category="errands">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-violet-100 text-violet-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider" data-i18n="tag_errands">Errands</span>
+                    <span class="text-xl font-extrabold text-slate-900">€20</span>
+                </div>
+                <h3 class="text-xl font-bold mb-2 text-slate-800" data-i18n="task3_title">Groceries pickup</h3>
+                <p class="text-slate-500 text-sm mb-6 line-clamp-2" data-i18n="task3_desc">Need 2 bags of groceries picked up from the local market and delivered to my door.</p>
+                <div class="flex items-center text-sm text-slate-400 mb-6 font-medium">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span data-i18n="task3_loc">2.0 km away (Matinkylä)</span>
+                </div>
+                <button class="w-full bg-slate-50 hover:bg-indigo-50 text-indigo-600 font-bold py-2.5 rounded-lg border border-slate-200 hover:border-indigo-200 transition" onclick="openModal('claim-modal')" data-i18n="btn_claim">Claim Task</button>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <!-- Log In Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-slate-900 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4" data-i18n="modal_login_title">Welcome Back</h3>
+            <p class="text-slate-500 mb-6" data-i18n="modal_login_desc">Enter your credentials to access your Tasktap account.</p>
+            <input type="email" placeholder="Email" class="w-full mb-4 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <input type="password" placeholder="Password" class="w-full mb-6 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <div class="flex gap-4">
+                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-lg transition" onclick="closeModal('login-modal')" data-i18n="modal_close">Cancel</button>
+                <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition" onclick="closeModal('login-modal')" data-i18n="nav_login">Log In</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Post Task Modal -->
+    <div id="post-modal" class="fixed inset-0 bg-slate-900 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4" data-i18n="modal_post_title">Post a New Task</h3>
+            <p class="text-slate-500 mb-6" data-i18n="modal_post_desc">Describe what you need help with and set a fair price.</p>
+            <input type="text" placeholder="Task Title" class="w-full mb-4 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <textarea placeholder="Description" class="w-full mb-4 px-4 py-3 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 h-24"></textarea>
+            <div class="flex gap-4">
+                <button class="flex-1 bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-3 rounded-lg transition" onclick="closeModal('post-modal')" data-i18n="modal_close">Cancel</button>
+                <button class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition" onclick="closeModal('post-modal')" data-i18n="nav_post">Post a Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Claim Modal -->
+    <div id="claim-modal" class="fixed inset-0 bg-slate-900 bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md w-full mx-4 shadow-2xl text-center">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            </div>
+            <h3 class="text-2xl font-bold text-slate-900 mb-2" data-i18n="modal_claim_title">Demo Only</h3>
+            <p class="text-slate-500 mb-6" data-i18n="modal_claim_desc">This feature is disabled in the prototype version.</p>
+            <button class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-lg transition" onclick="closeModal('claim-modal')" data-i18n="modal_close">Close</button>
+        </div>
+    </div>
+
+    <footer class="bg-slate-900 text-slate-400 py-10 text-center text-sm border-t border-slate-800">
+        <p>&copy; 2026 Tasktap. <span data-i18n="footer_text">Built for the community.</span></p>
+    </footer>
+
+    <!-- JavaScript for Filters, Modals, and Language Switcher -->
+    <script>
+        // Filters Logic
+        const buttons = document.querySelectorAll('.filter-btn');
+        const cards = document.querySelectorAll('.task-card');
+
+        buttons.forEach(button => {
+            button.addEventListener('click', () => {
+                buttons.forEach(btn => {
+                    btn.classList.remove('bg-slate-800', 'text-white');
+                    btn.classList.add('bg-white', 'text-slate-600');
+                });
+                
+                button.classList.remove('bg-white', 'text-slate-600');
+                button.classList.add('bg-slate-800', 'text-white');
+
+                const filterValue = button.getAttribute('data-filter');
+                cards.forEach(card => {
+                    if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Modals Logic
+        function openModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id).classList.add('flex');
+        }
+        function closeModal(id) {
+            document.getElementById(id).classList.add('hidden');
+            document.getElementById(id).classList.remove('flex');
+        }
+
+        // Translation Data
+        const translations = {
+            en: {
+                nav_login: "Log In",
+                nav_post: "Post a Task",
+                hero_title: "Earn Money Helping Your Neighbors",
+                hero_desc: "Tasktap connects locals for quick household micro-tasks. Mow lawns, walk dogs, or help with groceries—safely and securely in your area.",
+                hero_btn: "Find Tasks Near Me",
+                board_title: "Live Local Tasks",
+                filter_all: "All Tasks",
+                filter_yard: "Yard Work",
+                filter_pets: "Pets",
+                filter_errands: "Errands",
+                tag_yard: "Yard Work",
+                tag_pets: "Pets",
+                tag_errands: "Errands",
+                task1_title: "Rake front lawn leaves",
+                task1_desc: "Need someone to rake and bag the autumn leaves in my front yard. Bags are provided.",
+                task1_loc: "0.5 km away (Espoo)",
+                task2_title: "Walk golden retriever",
+                task2_desc: "Looking for a 30-minute afternoon walk for my very friendly dog, Max.",
+                task2_loc: "1.2 km away (Tapiola)",
+                task3_title: "Groceries pickup",
+                task3_desc: "Need 2 bags of groceries picked up from the local market and delivered to my door.",
+                task3_loc: "2.0 km away (Matinkylä)",
+                btn_claim: "Claim Task",
+                modal_login_title: "Welcome Back",
+                modal_login_desc: "Enter your credentials to access your Tasktap account.",
+                modal_post_title: "Post a New Task",
+                modal_post_desc: "Describe what you need help with and set a fair price.",
+                modal_claim_title: "Demo Only",
+                modal_claim_desc: "This feature is disabled in the prototype version.",
+                modal_close: "Close",
+                footer_text: "Built for the community."
+            },
+            fi: {
+                nav_login: "Kirjaudu sisään",
+                nav_post: "Julkaise tehtävä",
+                hero_title: "Ansaitse rahaa auttamalla naapureita",
+                hero_desc: "Tasktap yhdistää paikalliset nopeisiin kotitöihin. Leikkaa nurmikko, ulkoiluta koiria tai auta kauppaostoksissa – turvallisesti omalla alueellasi.",
+                hero_btn: "Etsi tehtäviä läheltäni",
+                board_title: "Aktiiviset paikalliset tehtävät",
+                filter_all: "Kaikki tehtävät",
+                filter_yard: "Pihatyöt",
+                filter_pets: "Lemmikit",
+                filter_errands: "Asiointi",
+                tag_yard: "Pihatyöt",
+                tag_pets: "Lemmikit",
+                tag_errands: "Asiointi",
+                task1_title: "Haravoi etupihan lehdet",
+                task1_desc: "Etsin jotakuta haravoimaan ja pussittamaan syksyn lehdet etupihaltani. Pussit tarjotaan.",
+                task1_loc: "0.5 km päässä (Espoo)",
+                task2_title: "Taluta kultaistanoutajaa",
+                task2_desc: "Etsin 30 minuutin iltapäivälenkittäjää erittäin ystävälliselle Max-koiralleni.",
+                task2_loc: "1.2 km päässä (Tapiola)",
+                task3_title: "Ruokaostosten nouto",
+                task3_desc: "Tarvitsen kaksi kassillista ruokaa haettuna lähikaupasta ja toimitettuna ovelleni.",
+                task3_loc: "2.0 km päässä (Matinkylä)",
+                btn_claim: "Varaa tehtävä",
+                modal_login_title: "Tervetuloa takaisin",
+                modal_login_desc: "Syötä tunnuksesi kirjautuaksesi Tasktap-tilillesi.",
+                modal_post_title: "Julkaise uusi tehtävä",
+                modal_post_desc: "Kuvaile mitä apua tarvitset ja aseta reilu hinta.",
+                modal_claim_title: "Vain demoversio",
+                modal_claim_desc: "Tämä ominaisuus on poistettu käytöstä prototyypissä.",
+                modal_close: "Sulje",
+                footer_text: "Yhteisölle rakennettu."
+            }
+        };
+
+        let currentLang = 'en';
+
+        function toggleLanguage() {
+            // Toggle language state
+            currentLang = currentLang === 'en' ? 'fi' : 'en';
+            
+            // Update button text (shows the language you can switch TO)
+            document.getElementById('lang-toggle').innerText = currentLang === 'en' ? 'FI' : 'EN';
+
+            // Find all elements with data-i18n attribute and update their text
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    element.innerText = translations[currentLang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
